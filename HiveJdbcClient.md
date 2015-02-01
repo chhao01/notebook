@@ -1,3 +1,6 @@
+- Source Code Of HiveJdbcClient.java
+
+```java
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -24,3 +27,14 @@ public class HiveJdbcClient {
     }
   }
 }
+```
+
+- Compile
+```shell
+javac -cp ../spark/lib/spark-assembly-1.2.0-hadoop1.0.4.jar HiveJdbcClient.java
+```
+
+- Run
+```shell
+java -cp ./::../spark/lib/spark-assembly-1.2.0-hadoop1.0.4.jar –Xmx512m HiveJdbcClient
+```
