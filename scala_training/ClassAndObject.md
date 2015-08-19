@@ -145,7 +145,7 @@ Restrictions:
 3. There may not be any method, member or object in scope with the same name as the implicit class.
 
 
-```
+```scala
 object Helpers {
   implicit class IntWithTimes(x: Int) {
     def times[A](f: => A): Unit = {
