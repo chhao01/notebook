@@ -301,7 +301,7 @@ object Extractor { // extractor
 
 Normally used in the Dependency Injection
 
-```
+```scala
 abstract class ConnectionPool {
   def getConnection: java.sql.Connection
 }
