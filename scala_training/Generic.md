@@ -21,6 +21,22 @@ println(stack.top)
 ```
 
 - Polymorphic Method
+```scala
+trait Helper {
+   def mkString[T](o: T): String = {
+     if (o == null) {
+        "null"
+     } else {
+        o.toString()
+     }
+   }
+}
+
+class A extends Helper
+new A().mkString("D")
+new A().mkString(1)
+new A().mkString(null)
+```
 
 ```scala
 object Traversal {
