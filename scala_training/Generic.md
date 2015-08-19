@@ -228,6 +228,39 @@ MyMath.addIt(1) // 124
 - Context Bound
 
 Usually we have the function definition like:
+```scala
+trait MyOrdering[T] {
+  def compare(x: T, y: T): Int
+}
+
+trait MyCharOrdering extends MyOrdering[Char] {
+  def compare(x: Char, y: Char) = x.toInt - y.toInt
+}
+
+trait MyShortOrdering extends MyOrdering[Short] {
+  def compare(x: Short, y: Short) = x.toInt - y.toInt
+}
+
+trait MyIntOrdering extends MyOrdering[Int] {
+  def compare(x: Int, y: Int) =
+    if (x < y) -1
+    else if (x == y) 0
+    else 1
+}
+
+implicit object MyInt extends MyIntOrdering
+implicit object MyChar extends MyCharOrdering
+implicit object MyShort extends MyShortOrdering
+
+def max[A](a: A, b: A)(implicit ord: MyOrdering[A]) = if (ord.compare(a, b) > 0) a else b
+
+scala> max(1, 2)
+res15: Int = 2
+
+scala> max('a', 'b')
+res16: Char = b
+
+```
 
 ```scala
  // the function h requires input paramemter in the type of B[A]
