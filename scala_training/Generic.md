@@ -1,8 +1,12 @@
 - Generic Type
 
 ```scala
+case class MyList[T] (head: T, tail: MyList[T]) {
+  def ::(e: T): MyList[T] = MyList(e, this)
+}
+
 class Stack[T] {
-  var elems: List[T] = Nil
+  var elems: MyList[T] = MyList[T](null.asInstanceOf[T], null.asInstanceOf[MyList[T]])
   def push(x: T) { elems = x :: elems }
   def top: T = elems.head
   def pop() { elems = elems.tail }
@@ -14,7 +18,6 @@ stack.push('a')
 println(stack.top)
 stack.pop()
 println(stack.top)
-
 ```
 
 - Polymorphic Method
