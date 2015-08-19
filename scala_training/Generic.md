@@ -89,6 +89,7 @@ val b = Traversal.map(a, (x: Int) => x.toDouble)
 
 ```scala
 val a = new Array[Int](2)
+val a: Array[Object] = new Array[Int](2) // compile error
 a(0) = 1
 a(1) = 2
 a(0) = “test” // compilation error 
