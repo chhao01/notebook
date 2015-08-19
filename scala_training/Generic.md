@@ -61,6 +61,12 @@ val b = Traversal.map(a, (x: Int) => x.toDouble)
 
 1. covariant (C[+A]): C[A] is a subclass of C[B] if A is a sub class of B. 
    For example: List[String] is subclass of List[Any], as String is the sub class of Any
+```scala
+case class A[+T](v: T)
+val a = A(1) // A[Int]
+val b = A(1.asInstanceOf[Any]) // A[Any]
+a.isInstanceOf[A[Any]]
+```
 2. contravariant (C[-A]: C[A] is a subclass of C[B] if B is a sub class of A
    For example:
    
@@ -71,9 +77,27 @@ val b = Traversal.map(a, (x: Int) => x.toDouble)
      case class List[+A](head: A, tail: List[A]) {
        def prepend[U >: A](e: U): List[U] = List(e, this)
      }
-
    ```
-   
+   ```scala
+   case class MyList[+T] (head: T, tail: MyList[T]) {
+  
+  def ::[U >: T](e: U): MyList[U] = MyList(e, this)
+
+}
+
+
+scala> val a = MyList(1, null.asInstanceOf[MyList[Int]])
+a: MyList[Int] = MyList(1,null)
+
+scala> val b = 1 :: a
+b: MyList[Int] = MyList(1,MyList(1,null))
+
+scala> val c = 1.2f :: b
+c: MyList[AnyVal] = MyList(1.2,MyList(1,MyList(1,null)))
+
+scala> val d = "abc" :: c
+d: MyList[Any] = MyList(abc,MyList(1.2,MyList(1,MyList(1,null))))
+   ```
 3. invariant (C[A]): C[A] is not related with C[B] even if A is a subclass of B
   For example:
   java.util.List[String] V.S. java.util.List[Object] (no relation between them)
